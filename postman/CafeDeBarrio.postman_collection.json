@@ -1,0 +1,249 @@
+{
+  "info": {
+    "name": "Café de Barrio — API Fullstack",
+    "description": "Colección completa de endpoints públicos y administrativos para Café de Barrio (Spring Boot + MySQL + JWT).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "adminEmail", "value": "admin@cafedebarrio.local" },
+    { "key": "adminPassword", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. Autenticación",
+      "item": [
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  pm.collectionVariables.set('accessToken', json.accessToken);",
+                  "  pm.collectionVariables.set('refreshToken', json.refreshToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Perfil Actual (/me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/refresh",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/logout",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Productos",
+      "item": [
+        {
+          "name": "Listar Productos (Público)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/productos?disponible=true&page=0&size=12&sortBy=precio&sortDir=asc"
+          }
+        },
+        {
+          "name": "Obtener Producto por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/productos/1"
+          }
+        },
+        {
+          "name": "Crear Producto (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/productos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Villa Rica Reserva 250g\",\n  \"descripcion\": \"Grano arábica lavado de altura con notas a chocolate bitter y naranja dulce.\",\n  \"precio\": 41.50,\n  \"stock\": 20,\n  \"imagenUrl\": \"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=900&q=85\",\n  \"categoriaId\": 1,\n  \"activo\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar Producto (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/productos/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Cajamarca Origen 250g\",\n  \"descripcion\": \"Grano arábica 100% lavado de altura (1,850 msnm) cultivado en San Ignacio.\",\n  \"precio\": 39.00,\n  \"stock\": 25,\n  \"imagenUrl\": \"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=900&q=85\",\n  \"categoriaId\": 1,\n  \"activo\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Desactivar Producto (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/productos/14"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Categorías",
+      "item": [
+        {
+          "name": "Listar Categorías",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categorias"
+          }
+        },
+        {
+          "name": "Crear Categoría (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/categorias",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ediciones de Temporada\",\n  \"descripcion\": \"Microlotes limitados de cosechas especiales peruanas.\",\n  \"activo\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar Categoría sin productos (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/categorias/5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Pedidos",
+      "item": [
+        {
+          "name": "Crear Pedido (Checkout Público)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteNombre\": \"Lucía Paredes\",\n  \"celular\": \"987654321\",\n  \"direccion\": \"Av. Larco 450, Miraflores\",\n  \"referencia\": \"Frente al parque Kennedy\",\n  \"observaciones\": \"Grano entero\",\n  \"items\": [\n    { \"productoId\": 1, \"cantidad\": 1 },\n    { \"productoId\": 6, \"cantidad\": 2 }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar Pedidos (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/pedidos?page=0&size=10"
+          }
+        },
+        {
+          "name": "Detalle Pedido (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/pedidos/1"
+          }
+        },
+        {
+          "name": "Cambiar Estado Pedido (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/pedidos/1/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"EN_PREPARACION\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Dashboard (Admin)",
+      "item": [
+        {
+          "name": "Resumen Global",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/dashboard/resumen"
+          }
+        },
+        {
+          "name": "Ventas por Periodo",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/dashboard/ventas?periodo=30d"
+          }
+        },
+        {
+          "name": "Estadísticas de Pedidos",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/dashboard/pedidos?periodo=30d"
+          }
+        }
+      ]
+    }
+  ]
+}

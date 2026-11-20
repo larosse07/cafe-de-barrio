@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+app:
+  seed:
+    enabled: false
+
+logging:
+  level:
+    com.cafedebarrio: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN

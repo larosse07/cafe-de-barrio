@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:cafe_de_barrio_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+app:
+  jwt:
+    secret: TestJwtSecretKeyForCafeDeBarrioIntegrationTests2026VeryLongAndSecureKey!
+    expiration-ms: 3600000
+    refresh-expiration-ms: 604800000
+  admin:
+    name: Admin Test
+    email: admin-test@cafedebarrio.local
+    password: TestAdminPassword123!
+  cors:
+    allowed-origins: http://localhost:4200
+  seed:
+    enabled: false

@@ -1,0 +1,55 @@
+// ==============================================================================
+// Animaciones y microinteracciones sutiles
+// ==============================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--color-cream) 25%, var(--color-beige) 50%, var(--color-cream) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}

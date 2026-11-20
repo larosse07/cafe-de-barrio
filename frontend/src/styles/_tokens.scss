@@ -1,0 +1,107 @@
+// ==============================================================================
+// CAFÉ DE BARRIO — Sistema de Diseño Global (Design Tokens)
+// Paleta artesanal, tipografía editorial y escalas consistentes
+// ==============================================================================
+
+:root {
+  // Paleta principal obligatoria
+  --color-espresso: #38251D;       // Marrón oscuro
+  --color-coffee: #674536;         // Marrón café
+  --color-cream: #F5EFE6;          // Crema
+  --color-beige: #E8D8C3;          // Beige
+  --color-warm-white: #FFFCF7;     // Blanco cálido
+  --color-olive: #78815A;          // Verde oliva
+
+  // Tonos derivados armónicos (para estados, bordes y jerarquía)
+  --color-espresso-900: #261812;
+  --color-espresso-700: #4A3228;
+  --color-coffee-light: #8A6554;
+  --color-olive-dark: #5C6543;
+  --color-olive-soft: #EEF1E6;
+  --color-cream-deep: #EFE5D8;
+  --color-border: #E4D7C5;
+  --color-border-strong: #D2BFA6;
+
+  // Texto
+  --color-text-primary: #38251D;
+  --color-text-secondary: #674536;
+  --color-text-muted: #846E62;
+  --color-text-inverse: #FFFCF7;
+
+  // Estados semánticos sobrios (acordes a identidad artesanal)
+  --color-success: #556B45;
+  --color-success-bg: #ECF2E7;
+  --color-warning: #A36A21;
+  --color-warning-bg: #FBF2E3;
+  --color-danger: #9B3B2E;
+  --color-danger-bg: #FAEBE8;
+  --color-info: #4D6475;
+  --color-info-bg: #EBF1F5;
+
+  // Tipografía
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  // Escala tipográfica fluida
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.875rem;
+  --text-hero: clamp(2.5rem, 5.2vw, 4.25rem);
+
+  // Escala de espaciado
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  // Radios moderados
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  // Sombras discretas y cálidas
+  --shadow-xs: 0 1px 2px rgba(56, 37, 29, 0.05);
+  --shadow-sm: 0 4px 12px rgba(56, 37, 29, 0.06);
+  --shadow-md: 0 10px 28px rgba(56, 37, 29, 0.09);
+  --shadow-lg: 0 20px 48px rgba(56, 37, 29, 0.14);
+
+  // Layout
+  --container-max: 1260px;
+  --navbar-height: 76px;
+  --sidebar-width: 268px;
+
+  // Transiciones
+  --transition-fast: 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 420ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  // Z-index
+  --z-sticky: 30;
+  --z-navbar: 50;
+  --z-drawer: 80;
+  --z-modal: 100;
+  --z-toast: 120;
+}
+
+// Breakpoints SCSS
+$bp-xs: 360px;
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
